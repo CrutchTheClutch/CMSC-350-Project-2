@@ -17,9 +17,8 @@ public class OperatorNode implements Node {
     // Variables
     private String operator;
     private Node right, left;
-    private static int i = 0;   // register count for 3-address code
-    private String home = System.getProperty("user.home");  // gets users home folder for creating file
-    private File file = new File(home + "\\Desktop", "3-Address.txt"); // creates 3-Address text file on users Desktop
+    private static int i;   // register count for 3-address code
+    private File file = new File("3-Address.txt"); // creates 3-Address text file on users Desktop
 
     /**
      * Assigns values to proper variables
@@ -44,16 +43,25 @@ public class OperatorNode implements Node {
     }
 
     /**
+     * Helper method for postOrderWalk
+     * @throws IOException if postOrderWalk cannot be executed
+     */
+    public void post() throws IOException {
+        i = 0;              // sets count
+        postOrderWalk();    // starts the walk
+    }
+
+    /**
      * Walks tree in PostOrder, then writes each step in expression to file
+     * @throws IOException if leftValue or rightValue cannot be set, or cannot write to file.
      * @return Result of step, meaning a result is stored in the tree as ("R" + i++) rather then as the step itself
      */
     public String postOrderWalk() throws IOException {
         String leftValue = left.postOrderWalk();
         String rightValue = right.postOrderWalk();
         String opValue = operatorEval(this.operator);
-        String result = "R" + i++;
 
-        System.out.println(i);
+        String result = "R" + i++;
 
         // Creates string with a step in the expression then writes to file
         String step = opValue + " " + result + " " + leftValue + " " + rightValue;

@@ -45,8 +45,9 @@ class ExpressionEval {
                 expressionStack.push(operator);
             }
         }
+
         // Creates the Assembly Code written to File
-        System.out.println(operator.postOrderWalk());
+        operator.post();
 
         return expressionStack.pop().inOrderWalk();
     }

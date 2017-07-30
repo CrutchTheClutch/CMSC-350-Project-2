@@ -34,4 +34,9 @@ public class OperandNode implements Node {
     public String postOrderWalk() {
         return String.valueOf(value);
     }
+
+    /**
+     * Helper method for postOrderWalk
+     */
+    public void post() {}
 }
